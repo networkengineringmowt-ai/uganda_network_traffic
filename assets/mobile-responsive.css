@@ -1,0 +1,119 @@
+/*
+ * Mobile responsiveness overrides (additive, non-destructive).
+ * The app renders almost all layout via inline React styles, so most rules
+ * here must use !important to win over inline styles — this file only
+ * takes effect inside the max-width media queries below, so desktop
+ * (>768px) rendering is completely unaffected.
+ */
+
+@media (max-width: 768px) {
+
+  html, body {
+    overflow-x: hidden;
+  }
+
+  /* ---- Top module-switch tab bar (Geospatial Map / Summary Tables / Deep Analytics) ---- */
+  div[style*="padding: 0px 14px; flex-shrink: 0; border-bottom"] {
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* ---- Sub-tab bars (e.g. Link x Class Table / Traffic Analytics / Traffic Tables / ADT Projection) ---- */
+  div[style*="padding: 6px 14px 0px; flex-shrink: 0; border-bottom"] {
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch;
+    flex-wrap: nowrap !important;
+  }
+
+  /* ---- Any row of buttons using the pill/tab pattern: keep on one line, scroll instead of clip ---- */
+  div[style*="padding: 0px 14px; flex-shrink: 0; border-bottom"] > button,
+  div[style*="padding: 6px 14px 0px; flex-shrink: 0; border-bottom"] > button {
+    flex-shrink: 0 !important;
+  }
+
+  /* ---- Persistent 280px filter/settings side panel (appears next to the map on the
+     Geospatial Map tab, and next to content on Summary Tables / Deep Analytics) ----
+     Stack it above/below the main content instead of squeezing it to a sliver. */
+  div:has(> div[style*="width: 280px"][style*="flex-shrink: 0"]) {
+    flex-direction: column !important;
+    overflow-y: auto !important;
+  }
+
+  div[style*="width: 280px"][style*="flex-shrink: 0"] {
+    width: 100% !important;
+    max-height: 45vh !important;
+    flex-shrink: 0 !important;
+    border-left: none !important;
+    border-right: none !important;
+    border-bottom: 1px solid rgba(99, 102, 241, 0.15) !important;
+  }
+
+  /* The main content sibling (map / table / analytics) gets full width and a
+     healthy minimum height once the panel above no longer squeezes it. */
+  div:has(> div[style*="width: 280px"][style*="flex-shrink: 0"]) > div:not([style*="width: 280px"]) {
+    width: 100% !important;
+    min-width: 100% !important;
+    min-height: 50vh !important;
+  }
+
+  /* ---- Leaflet map: take full viewport width and a solid minimum height ---- */
+  .leaflet-container {
+    width: 100% !important;
+    min-height: 50vh !important;
+  }
+
+  /* ---- KPI / stat-card grids (grid-template-columns: repeat(auto-fit, minmax(160px,1fr))) ----
+     Stack to a single column for readability on phones. */
+  div[style*="grid-template-columns: repeat(auto-fit"] {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* ---- Bottom timeline/status bar: allow horizontal scroll instead of squashing the slider ---- */
+  div[style*="height: 54px; flex-shrink: 0"] {
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch;
+  }
+  div[style*="height: 54px; flex-shrink: 0"] > * {
+    flex-shrink: 0 !important;
+  }
+  div[style*="height: 54px; flex-shrink: 0"] input[type="range"] {
+    min-width: 140px !important;
+  }
+
+  /* ---- Table scroll wrappers already use overflow-x: auto in the source; just make sure
+     touch scrolling is smooth and nothing above it clips it. ---- */
+  div[style*="overflow-x: auto"] {
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* ---- Touch targets: buttons should be at least 44px tall, excluding Leaflet's own
+     native controls (zoom +/-, attribution) which have fixed 26-30px control sizing
+     defined by the Leaflet library itself and must not be resized. ---- */
+  button:not([class*="leaflet"]) {
+    min-height: 44px !important;
+  }
+
+  /* Small filter/output pill buttons keep comfortable tap padding at the smaller
+     font sizes the app uses, without changing their visual style. */
+  button[class="tpill"] {
+    min-height: 40px !important;
+    padding-top: 8px !important;
+    padding-bottom: 8px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  /* Slightly tighter header type on very small phones, still readable. */
+  header {
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+  }
+
+  .leaflet-container {
+    min-height: 42vh !important;
+  }
+
+  div:has(> div[style*="width: 280px"][style*="flex-shrink: 0"]) > div:not([style*="width: 280px"]) {
+    min-height: 42vh !important;
+  }
+}
