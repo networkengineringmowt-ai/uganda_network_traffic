@@ -1,0 +1,23 @@
+{
+  "date": "2026-09-02",
+  "repo": "uganda_network_traffic",
+  "url": "https://networkengineringmowt-ai.github.io/uganda_network_traffic/",
+  "technical": {
+    "httpStatus": 200,
+    "loadFailed": false,
+    "pageRendered": true,
+    "bodyTextLength": 859,
+    "consoleErrors": [],
+    "brokenImages": [],
+    "hashLinksFound": [],
+    "chartElementCount": 7
+  },
+  "accuracy": {
+    "extractedFigures": [],
+    "discrepancies": []
+  },
+  "consistency": {
+    "districtList": null,
+    "notes": []
+  }
+}
